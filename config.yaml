@@ -1,0 +1,82 @@
+# free-llm-router configuration
+# ================================
+# Add your API keys here (or use env vars via ${VAR_NAME})
+# Enable the providers you have keys for.
+
+# --- Routing ---
+strategy: weighted  # round_robin | weighted | fallback
+max_retries: 3
+
+# Path to awesome-free-llm-apis data.json (optional, for auto-detecting models/rate limits)
+# data_path: /path/to/awesome-free-llm-apis/data.json
+
+# --- Providers ---
+# Each provider needs at minimum: base_url and api_key
+# models and rate limits are auto-detected if data_path is set
+
+providers:
+  # Groq — ultra-fast, 30 RPM, 14,400 RPD
+  groq:
+    enabled: true
+    base_url: https://api.groq.com/openai/v1
+    api_key: ${GROQ_API_KEY}
+    # models auto-detected from data.json, or specify manually:
+    # models:
+    #   - llama-3.3-70b-versatile
+    #   - llama-3.1-8b-instant
+    #   - qwen3-32b
+    #   - deepseek-r1-distill-70b
+
+  # Cerebras — ultra-fast, 30 RPM, 14,400 RPD, 1M TPD
+  cerebras:
+    enabled: true
+    base_url: https://api.cerebras.ai/v1
+    api_key: ${CEREBRAS_API_KEY}
+
+  # Google Gemini — 10-15 RPM, 250-1000 RPD, 1M context
+  gemini:
+    enabled: false
+    base_url: https://generativelanguage.googleapis.com/v1beta
+    api_key: ${GEMINI_API_KEY}
+    # models:
+    #   - gemini-2.5-flash
+    #   - gemini-2.5-flash-lite
+
+  # Mistral AI — ~1B tokens/month
+  mistral:
+    enabled: true
+    base_url: https://api.mistral.ai/v1
+    api_key: ${MISTRAL_API_KEY}
+    # models:
+    #   - mistral-small-2603
+    #   - mistral-medium-2505
+    #   - open-mistral-nemo
+
+  # Cohere — 1,000 calls/month
+  cohere:
+    enabled: false
+    base_url: https://api.cohere.com/v2
+    api_key: ${COHERE_API_KEY}
+    # Note: Cohere uses a non-standard API format.
+    # The proxy handles adaptation but Cohere may require
+    # additional tweaking. Test before enabling.
+
+  # Z AI (Zhipu AI) — permanent free, 1 concurrent
+  zai:
+    enabled: false
+    base_url: https://open.bigmodel.cn/api/paas/v4
+    api_key: ${ZAI_API_KEY}
+
+  # GitHub Models — 45+ models, 150 RPD
+  github_models:
+    enabled: false
+    base_url: https://models.inference.ai.azure.com
+    api_key: ${GITHUB_TOKEN}
+    priority: -1  # lower priority, rate limits are tight
+
+  # Cloudflare Workers AI — 50+ models, 10K neurons/day
+  # NOTE: requires account_id in the URL
+  cloudflare:
+    enabled: false
+    base_url: https://api.cloudflare.com/client/v4/accounts/YOUR_ACCOUNT_ID/ai/run
+    api_key: ${CLOUDFLARE_API_TOKEN}
