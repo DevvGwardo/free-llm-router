@@ -1,0 +1,32 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install flake8 pyyaml httpx fastapi 2>/dev/null || true
+
+      - name: Lint with flake8
+        run: |
+          flake8 free_llm_router/ --count --select=E9,F63,F7,F82 --show-source --statistics
+          flake8 free_llm_router/ --count --exit-zero --max-complexity=10 --max-line-length=120 --statistics
+
+      - name: Verify import
+        run: |
+          python -c "import free_llm_router.router; print('Import OK')"

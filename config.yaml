@@ -74,6 +74,39 @@ providers:
     api_key: ${GITHUB_TOKEN}
     priority: -1  # lower priority, rate limits are tight
 
+  # OpenCode — your local Hermes model (zen endpoint)
+  opencode:
+    enabled: true
+    base_url: https://opencode.ai/zen/v1
+    api_key: ${OPENCODE_API_KEY}
+    models:
+      - big-pickle
+      - claude-sonnet-4-5
+      - gemini-3-flash
+      - minimax-m2.5-free
+      - hy3-preview-free
+      - nemotron-3-super-free
+
+  # OpenRouter — free tier with 200+ models, openclaude default free provider
+  openrouter:
+    enabled: true
+    base_url: https://openrouter.ai/api/v1
+    api_key: ${OPENROUTER_API_KEY}
+    models:
+      - google/gemini-2.5-flash-lite:free
+      - meta-llama/llama-3.3-70b-instruct:free
+      - minimax/minimax-m2.5:free
+      - tencent/hy3-preview:free
+
+  # DeepSeek — V4 Flash (your paid model, 500 requests)
+  deepseek:
+    enabled: false
+    base_url: https://api.deepseek.com/v1
+    api_key: ${DEEPSEEK_API_KEY}
+    models:
+      - deepseek-ai/deepseek-v4-flash
+    priority: 10  # paid model, high priority when enabled
+
   # Cloudflare Workers AI — 50+ models, 10K neurons/day
   # NOTE: requires account_id in the URL
   cloudflare:

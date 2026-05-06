@@ -15,7 +15,7 @@ from typing import Optional
 
 import yaml
 
-from .providers import ProviderConfig, ProviderType, detect_provider_type, parse_rate_limit
+from .providers import ProviderConfig, detect_provider_type, parse_rate_limit
 
 DEFAULT_CONFIG_PATH = Path(__file__).parent.parent / "config.yaml"
 
