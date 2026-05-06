@@ -89,20 +89,9 @@ hermes config set model.api_key not-needed
 Hermes thinks it's talking to one endpoint.
 The router secretly rotates across all your free providers.
 
-```mermaid
-%%{init: {'theme':'dark', 'themeVariables': { 'primaryColor':'#6366f1', 'primaryTextColor':'#fff', 'lineColor':'#4f46e5', 'background':'#0f0d1a'}}}%%
-flowchart LR
-    H["🧬 Hermes Agent"] -->|"base_url: localhost:8686"| R["🔀 free-llm-router"]
-    R -->|"auto-rotate"| G["⚡ Groq"]
-    R -->|"auto-rotate"| C["🔥 Cerebras"]
-    R -->|"auto-rotate"| M["🌬️ Mistral"]
-
-    style H fill:#6366f1,stroke:#818cf8,color:#fff
-    style R fill:#7c3aed,stroke:#a78bfa,color:#fff
-    style G fill:#059669,stroke:#34d399,color:#fff
-    style C fill:#059669,stroke:#34d399,color:#fff
-    style M fill:#059669,stroke:#34d399,color:#fff
-```
+<p align="center">
+  <img src="docs/repo-hermes-integration.png" alt="Hermes integration flow" width="80%">
+</p>
 
 ---
 
