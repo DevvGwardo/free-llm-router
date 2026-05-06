@@ -1,7 +1,5 @@
 <div align="center">
-  <br>
-  <img src="https://raw.githubusercontent.com/DevvGwardo/free-llm-router/main/assets/logo.png" alt="free-llm-router" width="400">
-  <br>
+  <img src="docs/repo-banner.png" alt="free-llm-router" width="100%">
   <br>
 
   <p><strong>Combine every free LLM API tier into one endpoint.</strong></p>
@@ -21,50 +19,9 @@
 
 ## How it works
 
-```mermaid
-%%{init: {'theme':'dark', 'themeVariables': { 'primaryColor':'#6366f1', 'primaryTextColor':'#fff', 'primaryBorderColor':'#818cf8', 'lineColor':'#6366f1', 'secondaryColor':'#1e1b4b', 'tertiaryColor':'#312e81', 'background':'#0f0d1a', 'mainBkg':'#1e1b4b', 'nodeBorder':'#818cf8', 'clusterBkg':'#1e1b4b', 'clusterBorder':'#312e81', 'titleColor':'#e0e7ff'}}}%%
-flowchart LR
-    subgraph app[" "]
-        A["🤖 Your App\nor Hermes Agent"]
-    end
-
-    subgraph router["free-llm-router proxy"]
-        direction TB
-        B{"🔀 Router\n/weighted/round-robin"}
-        C["📊 Rate Limiter\nRPM · RPD tracking"]
-        D["🔄 Backoff\n429 → rotate\n5xx → exponential"]
-        B --- C
-        B --- D
-    end
-
-    subgraph providers["Free Providers"]
-        direction TB
-        P1["⚡ Groq\n30 RPM · 14.4K RPD\nllama-3.3-70b"]
-        P2["🔥 Cerebras\n30 RPM · 14.4K RPD\ngpt-oss-120b"]
-        P3["🌬️ Mistral\n1B tok/mo\nMistral Large 3"]
-        P4["💎 Gemini\n10 RPM · 250 RPD\nGemini 2.5 Flash"]
-        P5["🇨🇳 Z AI\nUnlimited\nGLM-4.7-Flash"]
-        P6["☁️ Cloudflare\n50+ models\n10K neurons/day"]
-    end
-
-    A -->|"POST /v1/chat/completions"| B
-    B -->|"pick best"| P1
-    B -->|"pick best"| P2
-    B -->|"pick best"| P3
-    B -->|"pick best"| P4
-    B -->|"pick best"| P5
-    B -->|"pick best"| P6
-
-    classDef app fill:#6366f1,stroke:#818cf8,color:#fff,stroke-width:2px
-    classDef router fill:#7c3aed,stroke:#a78bfa,color:#fff,stroke-width:2px
-    classDef limiter fill:#4f46e5,stroke:#818cf8,color:#fff,stroke-width:1px
-    classDef provider fill:#059669,stroke:#34d399,color:#fff,stroke-width:1px
-
-    class A app
-    class B router
-    class C,D limiter
-    class P1,P2,P3,P4,P5,P6 provider
-```
+<p align="center">
+  <img src="docs/repo-architecture.png" alt="architecture" width="90%">
+</p>
 
 **One endpoint. OpenAI-compatible. Automatic rotation.**
 
